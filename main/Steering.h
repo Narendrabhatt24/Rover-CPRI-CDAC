@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#define DEBUG
 
 #define R_str_dir 23          //Rear Steering Direction PIN 
 #define R_str_pwm 3          //Rear Steering Speed PIN

@@ -92,10 +92,12 @@ void get_steering_roll_time()
   {
     roll_time=1500;
   }
-  Serial.println (""); 
-  Serial.print ("Roll :");                                                                                         ////
-  Serial.print (roll_time);                                                                                             ////
-  Serial.print (" uS. ");
+  #ifdef DEBUG
+    Serial.println (""); 
+    Serial.print ("Roll :");
+    Serial.print (roll_time);
+    Serial.print (" uS. ");
+  #endif
 }
 
 void control_front_steering()
@@ -194,6 +196,14 @@ void control_front_steering()
       //analogWrite(R_str_pwm,0);   
     }
   }
+  #ifdef DEBUG
+    Serial.print("  |FSensor Val= ");                                                                               ////
+    Serial.print(front_sensor_angle);
+    Serial.print("  | F Actual Angle=");                                                                                  ////  
+    Serial.print(F_str_actual_angle);
+    Serial.print("  | Front Diff Angle=");                                                                                   ////
+    Serial.print(front_angle_diff); 
+  #endif
 }
 
 void control_rear_steering()
@@ -293,4 +303,12 @@ void control_rear_steering()
       //analogWrite(R_str_pwm,0);   
     }
   }
+  #ifdef DEBUG
+    Serial.print("  | RSensor Val= ");                                                                            ////
+    Serial.print(rear_sensor_angle);                                                                                             ////                                                                                        ////  
+    Serial.print("  | R Actual Angle=");                                                                                   ////
+    Serial.print(R_str_actual_angle);                                                                                         ////
+    Serial.print("  | Rear Diff Angle=");                                                                                   ////
+    Serial.print(rear_angle_diff);  
+  #endif
 }

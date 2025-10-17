@@ -1,5 +1,7 @@
 #include <Arduino.h>
 #include "I2C_Modules.h"
+#define DEBUG
+
 #define power_relay 28                //Wheel +48V Main Supply Control PIN
 #define Wheel_direction 29            //Wheel Direction Control PIN
 

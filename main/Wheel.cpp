@@ -76,10 +76,11 @@ void get_wheel_throttle_time()
   {
     throttle_time=1500;
   }
-  Serial.print ("   | Throttle=  ");                                                                                    ////
-  Serial.print (throttle_time);                                                                                         ////
-  Serial.print (" uS. | "); 
-
+  #ifdef DEBUG
+    Serial.print ("   | Throttle=  ");                                                                                    ////
+    Serial.print (throttle_time);                                                                                         ////
+    Serial.print (" uS. | "); 
+  #endif
 }
 
 void control_power_relay()
@@ -110,13 +111,16 @@ void move_wheels_reverse()
 
     left_dac.setVoltage(temp1,false);                   //Rotate at normal speed                              
     right_dac.setVoltage(temp3,false);                  //Speed controlled as per turning angle
-    //digitalWrite(Wheel_direction,HIGH);                 //Wheel moving in forward direction
-    digitalWrite(Wheel_direction,LOW);    
-    Serial.print("Forward Right Turning | "); 
-    Serial.print("  | Left DAC = ");  
-    Serial.print(temp1);  
-    Serial.print("  Right DAC ="); 
-    Serial.print(temp3); 
+    //digitalWrite(Wheel_direction,HIGH);               //Wheel moving in forward direction
+    digitalWrite(Wheel_direction,LOW); 
+
+    #ifdef DEBUG   
+      Serial.print("Forward Right Turning | "); 
+      Serial.print("  | Left DAC = ");  
+      Serial.print(temp1);  
+      Serial.print("  Right DAC ="); 
+      Serial.print(temp3);
+    #endif 
   }
   else if(throttle_time>1690 && F_str_actual_angle<-3)    //Change left side wheel's speed while rover turning left side
   {
@@ -128,11 +132,15 @@ void move_wheels_reverse()
     right_dac.setVoltage(temp1,false);                    //Rotate at normal speed 
     //digitalWrite(Wheel_direction,HIGH);                   //Wheel moving in forward direction
     digitalWrite(Wheel_direction,LOW);
-    Serial.print("Forward Left Turning | "); 
-    Serial.print("  Left DAC =");
-    Serial.print(temp3);                                                             
-    Serial.print("  | Right DAC = ");
-    Serial.print(temp1);
+    
+    #ifdef DEBUG  
+      Serial.print("Forward Left Turning | "); 
+      Serial.print("  Left DAC =");
+      Serial.print(temp3);                                                             
+      Serial.print("  | Right DAC = ");
+      Serial.print(temp1);
+    #endif
+
   }
   else if(throttle_time>1690 && (F_str_actual_angle>-3 && F_str_actual_angle<3))  //No speed change for -3 to +3 degree 
   {
@@ -141,11 +149,14 @@ void move_wheels_reverse()
     left_dac.setVoltage(temp1, false);
     //digitalWrite(Wheel_direction,HIGH); 
     digitalWrite(Wheel_direction,LOW);
-    Serial.print("Forward Straight | ");
-    Serial.print("  Left DAC =");
-    Serial.print(temp1); 
-    Serial.print("  | Right DAC = ");
-    Serial.print(temp1);
+
+    #ifdef DEBUG  
+      Serial.print("Forward Straight | ");
+      Serial.print("  Left DAC =");
+      Serial.print(temp1); 
+      Serial.print("  | Right DAC = ");
+      Serial.print(temp1);
+    #endif
   } 
 }
 
@@ -168,11 +179,14 @@ void move_wheels_forward()
     right_dac.setVoltage(temp3,false);                                                ////                              ////
     //digitalWrite(Wheel_direction,LOW);                                                ////                              ////
     digitalWrite(Wheel_direction,HIGH);
-    Serial.print("Backward Right Turning | ");                                        ////                              ////
-    Serial.print("  | Left DAC = ");                                                  ////                              ////
-    Serial.print(temp1);                                                              ////                              ////
-    Serial.print("  Right DAC =");                                                    ////                              ////
-    Serial.print(temp3); 
+    
+    #ifdef DEBUG  
+      Serial.print("Backward Right Turning | ");                                        ////                              ////
+      Serial.print("  | Left DAC = ");                                                  ////                              ////
+      Serial.print(temp1);                                                              ////                              ////
+      Serial.print("  Right DAC =");                                                    ////                              ////
+      Serial.print(temp3); 
+    #endif
   }
   else if(throttle_time<1310 && F_str_actual_angle<-3)
   {
@@ -183,11 +197,14 @@ void move_wheels_forward()
     right_dac.setVoltage(temp1,false);                                                ////                              ////
     //digitalWrite(Wheel_direction,LOW);                                                ////                              ////
     digitalWrite(Wheel_direction,HIGH);
-    Serial.print("Backward Left Turning | ");                                         ////                              ////  
-    Serial.print("  Left DAC =");                                                     ////                              ////  
-    Serial.print(temp3);                                                              ////                              ////
-    Serial.print("  | Right DAC = ");                                                 ////                              ////
-    Serial.print(temp1);
+    
+    #ifdef DEBUG  
+      Serial.print("Backward Left Turning | ");                                         ////                              ////  
+      Serial.print("  Left DAC =");                                                     ////                              ////  
+      Serial.print(temp3);                                                              ////                              ////
+      Serial.print("  | Right DAC = ");                                                 ////                              ////
+      Serial.print(temp1);
+    #endif
   }
   else if(throttle_time<1310 && (F_str_actual_angle<3 && F_str_actual_angle>-3))
   {
@@ -196,11 +213,14 @@ void move_wheels_forward()
     left_dac.setVoltage(temp1, false);                                                ////                              ////
     //digitalWrite(Wheel_direction,LOW);                                                ////                              ////
     digitalWrite(Wheel_direction,HIGH);
-    Serial.print("Backward Straight | ");                                             ////                              ////
-    Serial.print("  Left DAC =");                                                     ////                              ////
-    Serial.print(temp1);                                                              ////                              ////
-    Serial.print("  | Right DAC = ");                                                 ////                              ////
-    Serial.print(temp1);
+    
+    #ifdef DEBUG  
+      Serial.print("Backward Straight | ");                                             ////                              ////
+      Serial.print("  Left DAC =");                                                     ////                              ////
+      Serial.print(temp1);                                                              ////                              ////
+      Serial.print("  | Right DAC = ");                                                 ////                              ////
+      Serial.print(temp1);
+    #endif
   }
 }
 
@@ -210,5 +230,8 @@ void stop_wheels()
   left_dac.setVoltage(0, false);
   //digitalWrite(Wheel_direction,LOW);
   digitalWrite(Wheel_direction,HIGH);
-  Serial.print("Rover Stopped"); 
+  
+  #ifdef DEBUG  
+    Serial.print("Rover Stopped"); 
+  #endif
 }
