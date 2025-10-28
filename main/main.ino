@@ -2,13 +2,19 @@
 #include "Wheel.h"
 #include "I2C_Modules.h"
 #include "Boom.h"
+#include "Level_Sense.h"
 
 //#define BOOM_EN 
-//#define DEBUG                     //Also defined in Wheel.h and Steering.h
+#define LEVEL_SENSE_EN
+#define DEBUG                     //Also defined in Wheel.h and Steering.h and Level_Sense.h for individual control
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void setup() 
 {
+  #ifdef LEVEL_SENSE_EN
+    init_level_sense();
+  #endif
+
   #ifdef BOOM_EN
     init_boom_pins();
   #endif
@@ -42,11 +48,16 @@ void loop()
   else
     stop_wheels();
 
+  #ifdef LEVEL_SENSE_EN
+    get_level();
+  #endif
+  
   #ifdef BOOM_EN
     get_boom_UD_time();
     control_boom_UD();
     get_boom_LR_time();
     control_boom_LR();  
   #endif
+
 }
 
