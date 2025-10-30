@@ -46,6 +46,6 @@ void get_level()
 void send_val_to_cube(int a)
 {
   digitalWrite(Ch_Lev_PWM,HIGH);
-  delayMicroseconds(a*10);
+  delayMicroseconds(a*8.50);
   digitalWrite(Ch_Lev_PWM,LOW);
 }
