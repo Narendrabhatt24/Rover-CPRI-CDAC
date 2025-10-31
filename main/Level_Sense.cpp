@@ -38,7 +38,7 @@ void get_level()
   #ifdef DEBUG
     Serial.print("  | Chemical level is =" );
     Serial.print(chem_percent);
-    Serial.println("%");
+    Serial.print("%");
   #endif
   send_val_to_cube(chem_percent);  
 }
